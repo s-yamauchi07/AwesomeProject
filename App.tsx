@@ -4,11 +4,30 @@
  *
  * @format
  */
-import { StatusBar, StyleSheet, useColorScheme, View, Text } from 'react-native';
+import * as React from 'react';
+import { StatusBar, useColorScheme } from 'react-native';
 import {
   SafeAreaProvider,
-  useSafeAreaInsets,
+  // useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { createStaticNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Home } from './core/common/components/Home'
+import { Profile } from './core/common/components/Profile'
+
+const RootStack = createNativeStackNavigator({
+  screens: {
+    Home: {
+      screen: Home,
+      options: { title: 'Home' },
+    },
+    Profile: {
+      screen: Profile,
+    },
+  },
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,39 +35,40 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <Navigation />
     </SafeAreaProvider>
   );
 }
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+// function AppContent() {
+//   // const safeAreaInsets = useSafeAreaInsets();
 
-  return (
-    <View style={[
-      styles.container,
-      {
-        paddingTop: safeAreaInsets.top,
-        paddingBottom: safeAreaInsets.bottom,
-        paddingRight: safeAreaInsets.right,
-        paddingLeft: safeAreaInsets.left,
-      }
-    ]}>
-      <Text style={styles.headerTitle}>Welcome to My Page</Text>
-    </View>
-  );
-}
+//   return (
+//     <>
+//       {/* <View style={[
+//         styles.container,
+//         {
+//           paddingTop: safeAreaInsets.top,
+//           paddingBottom: safeAreaInsets.bottom,
+//           paddingRight: safeAreaInsets.right,
+//           paddingLeft: safeAreaInsets.left,
+//         }
+//       ]}> */}
+//         <Navigation />
+//       {/* </View> */}
+//     </>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightgray'
-  },
-  headerTitle: {
-    padding: 24,
-    fontSize: 24,
-    textAlign: 'center'
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   headerTitle: {
+//     padding: 24,
+//     fontSize: 24,
+//     textAlign: 'center'
+//   }
+// });
 
 export default App;
