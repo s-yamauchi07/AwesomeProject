@@ -1,9 +1,10 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
-import { RootStackParamList } from '../types/RootStackParamList';
+import { StaticScreenProps } from '@react-navigation/native';
 
-type ProfileProps = NativeStackScreenProps<RootStackParamList, 'Profile'>
+type ProfileProps = StaticScreenProps<{
+  name: string;
+}>
 
 export const Profile = ({route}: ProfileProps) => {
   const { name } = route.params;
